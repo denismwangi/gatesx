@@ -28,7 +28,8 @@ class LoginViewModel extends ChangeNotifier {
         notifyListeners();
         return true;
       } else {
-        errorMessage = 'Login failed.';
+        final responseError = jsonDecode(response.body);
+        errorMessage = responseError['message'];
       }
     } catch (e) { 
       errorMessage = 'Login failed: $e';

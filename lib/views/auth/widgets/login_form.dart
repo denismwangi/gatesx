@@ -29,77 +29,138 @@ class _LoginFormState extends State<LoginForm> {
           Column(
             children: [
               Container(
+                margin: const EdgeInsets.only(top: 20), // 40 pixels top margin
                 padding: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
                   color: Color(0xFFFCE4EC),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Icon(Icons.rocket_launch, color: Color(0xFFE91E63), size: 26),
+                child: const Icon(
+                  Icons.rocket_launch,
+                  color: Color(0xFFFF8F00),
+                  size: 26,
+                ),
               ),
               const SizedBox(height: 8),
-              const Text('4takeaway', style: TextStyle(color: Color(0xFFE91E63), fontWeight: FontWeight.bold)),
+              const Text(
+                '4takeaway',
+                style: TextStyle(
+                  color: Color(0xFFFF8F00),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ],
           ),
-        //   const SizedBox(height: 24),
-        //  const Text(
-        //     'Nice to have you here!',
-        //     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
-        //     textAlign: TextAlign.center,
-        //   ),
+          //   const SizedBox(height: 24),
+          //  const Text(
+          //     'Nice to have you here!',
+          //     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
+          //     textAlign: TextAlign.center,
+          //   ),
           const SizedBox(height: 10),
           const Text(
-          'Log in and discover great deals',
-          textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.grey, fontSize: 15),
-        ),
+            'Log in and discover great deals',
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.grey, fontSize: 15),
+          ),
           const SizedBox(height: 32),
           const Align(
             alignment: Alignment.centerLeft,
-            child: Text('Username', style: TextStyle(fontWeight: FontWeight.w600)),
+            child: Text(
+              'Username',
+              style: TextStyle(fontWeight: FontWeight.w600,color: Colors.grey),
+            ),
           ),
           const SizedBox(height: 8),
           TextFormField(
             controller: _emailController,
             decoration: const InputDecoration(
+              contentPadding: EdgeInsets.fromLTRB(
+                9,
+                10,
+                0,
+                0,
+              ), // left, top, right, bottom
               hintText: 'username',
-              border: OutlineInputBorder(),
+              hintStyle: TextStyle(color: Colors.grey),
+              filled: true,
+              fillColor: Color(0xFFF3F4F6),
+              border: OutlineInputBorder(
+                borderSide: BorderSide(color: Color(0xFFE5E7EB)),
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Color(0xFFE5E7EB)),
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Color(0xFFBFC3C7)),
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+              ),
             ),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                  return 'Please enter your username';
+                return 'Please enter your username';
               }
               return null;
             },
           ),
-          const SizedBox(height: 16),
+
           const Align(
             alignment: Alignment.centerLeft,
-            child: Text('Password', style: TextStyle(fontWeight: FontWeight.w600)),
+            child: Text(
+              'Password',
+              style: TextStyle(fontWeight: FontWeight.w600,color:Colors.grey),
+            ),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 7),
+
           TextFormField(
             controller: _passwordController,
             obscureText: true,
             decoration: const InputDecoration(
+              contentPadding: EdgeInsets.fromLTRB(
+                9,
+                10,
+                0,
+                0,
+              ), // left, top, right, bottom
               hintText: 'Password',
-              border: OutlineInputBorder(),
+              hintStyle: TextStyle(color: Colors.grey),
+              filled: true,
+              fillColor: Color(0xFFF3F4F6),
+              border: OutlineInputBorder(
+                borderSide: BorderSide(color: Color(0xFFE5E7EB)),
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Color(0xFFE5E7EB)),
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Color(0xFFBFC3C7)),
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+              ),
             ),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                  return 'Please enter your password';
-
+                return 'Please enter your password';
               }
               return null;
             },
           ),
+
           const SizedBox(height: 8),
           Align(
             alignment: Alignment.centerLeft,
             child: TextButton(
               onPressed: () {},
-              style: TextButton.styleFrom(padding: EdgeInsets.zero, minimumSize: Size(0, 0)),
+              style: TextButton.styleFrom(
+                padding: EdgeInsets.zero,
+                minimumSize: Size(0, 0),
+              ),
               child: const Text(
-                  'Forgot password',
+                'Forgot password',
                 style: TextStyle(color: Colors.grey, fontSize: 13),
               ),
             ),
@@ -107,26 +168,52 @@ class _LoginFormState extends State<LoginForm> {
           const SizedBox(height: 16),
           SizedBox(
             width: double.infinity,
-            height: 50,
+            height: 45,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFFCFD3D6),
-                foregroundColor: Colors.black,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                backgroundColor: const Color(0xFFFF8F00),
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
               ),
               onPressed: model.isLoading
                   ? null
                   : () async {
                       if (_formKey.currentState!.validate()) {
-                        final success = await model.login(_emailController.text, _passwordController.text);
+                        final success = await model.login(
+                          _emailController.text,
+                          _passwordController.text,
+                        );
                         if (success && context.mounted) {
                           Navigator.pushReplacement(
                             context,
-                            MaterialPageRoute(builder: (_) => const HomeScreen()),
+                            MaterialPageRoute(
+                              builder: (_) => const HomeScreen(),
+                            ),
                           );
                         } else if (model.errorMessage != null) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(model.errorMessage!)),
+                            SnackBar(
+                              content: Row(
+                                children: [
+                                  Icon(
+                                    Icons.error_outline,
+                                    color: Colors.white,
+                                  ),
+                                  SizedBox(width: 12),
+                                  Expanded(child: Text(model.errorMessage!)),
+                                ],
+                              ),
+                              backgroundColor: Colors
+                                  .redAccent, // or Colors.orange for a warning
+                              duration: Duration(seconds: 3),
+                              behavior: SnackBarBehavior
+                                  .floating, // Optional: makes it float above content
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
                           );
                         }
                       }
@@ -144,7 +231,13 @@ class _LoginFormState extends State<LoginForm> {
             ),
           ),
           const SizedBox(height: 18),
-          const Center(child: Text('Or sign in with', style: TextStyle(color: Colors.grey))),          const SizedBox(height: 12),
+          const Center(
+            child: Text(
+              'Or sign in with',
+              style: TextStyle(color: Colors.grey),
+            ),
+          ),
+          const SizedBox(height: 12),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -157,12 +250,15 @@ class _LoginFormState extends State<LoginForm> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-                const Text('Don\'t have an account? '),
+              const Text('Don\'t have an account? ',style:TextStyle(color: Colors.grey)),
               GestureDetector(
                 onTap: () {},
                 child: const Text(
                   'Create one here!',
-                  style: TextStyle(color: Color(0xFFE91E63), fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    color: Color(0xFFFF8F00),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],

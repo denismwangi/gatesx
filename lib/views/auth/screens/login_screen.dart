@@ -10,23 +10,17 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFBFC3C7),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 24.0),
-            padding: const EdgeInsets.all(24.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(24.0),
-            ),
-            child: Consumer<LoginViewModel>(
-              builder: (context, model, child) {
-                return LoginForm(model: model);
-              },
-            ),
-          ),
-        ),
+      backgroundColor: Colors.white,
+      body: Consumer<LoginViewModel>(
+        builder: (context, model, child) {
+          return Container(
+            color: const Color(0xFFFFFFFF),
+            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 36.0),
+            width: double.infinity,
+            height: double.infinity,
+            child: LoginForm(model: model),
+          );
+        },
       ),
     );
   }
