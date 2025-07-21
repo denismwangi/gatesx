@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../viewmodels/login_viewmodel.dart';
-import '../../home_screen.dart';
+import '../../../views/home/home_screen.dart';
 import 'social_button.dart';
 
 class LoginForm extends StatefulWidget {
