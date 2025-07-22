@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
 import '../../../models/product.dart';
+import '../../product/product_detail_screen.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   const ProductCard({
     super.key,
     required this.product,
-    required this.onTap,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: onTap ?? () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProductDetailScreen(product: product),
+          ),
+        );
+      },
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -197,17 +205,29 @@ class ProductCard extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Container(
-                          width: 26,
-                          height: 26,
-                          decoration: const BoxDecoration(
-                            color: Colors.black,
-                            shape: BoxShape.circle,
+                        ElevatedButton(
+                          onPressed: () {
+                            // Add to cart functionality
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF6366F1),
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 4,
+                            ),
+                            minimumSize: Size.zero,
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
                           ),
-                          child: const Icon(
-                            Icons.arrow_outward,
-                            color: Colors.white,
-                            size: 13,
+                          child: const Text(
+                            'Add to Cart',
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                       ],

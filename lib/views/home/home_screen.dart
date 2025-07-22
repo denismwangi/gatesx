@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../../viewmodels/home_viewmodel.dart';
 import '../../models/product.dart';
 import '../../models/category.dart';
+import '../product/product_detail_screen.dart';
 import 'widgets/profile_header.dart';
 import 'widgets/search_bar_widget.dart';
 import 'widgets/promotional_slider.dart';
@@ -131,7 +132,6 @@ class HomeScreenContent extends StatelessWidget {
                                     final product = viewModel.products[index];
                                     return ProductCard(
                                       product: product,
-                                      onTap: () => _navigateToProductDetail(context, product, viewModel),
                                     );
                                   },
                                   childCount: viewModel.products.length,
@@ -150,11 +150,10 @@ class HomeScreenContent extends StatelessWidget {
 
   void _navigateToProductDetail(BuildContext context, Product product, HomeViewModel viewModel) {
     viewModel.addToRecentlyViewed(product);
-    // TODO: Navigate to product detail screen
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Viewing ${product.title}'),
-        duration: const Duration(seconds: 1),
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ProductDetailScreen(product: product),
       ),
     );
   }
@@ -184,9 +183,9 @@ class HomeScreenContent extends StatelessWidget {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today_outlined),
-            activeIcon: Icon(Icons.calendar_today),
-            label: 'Calendar',
+            icon: Icon(Icons.shopping_cart_outlined),
+            activeIcon: Icon(Icons.shopping_cart),
+            label: 'Cart',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite_outline),

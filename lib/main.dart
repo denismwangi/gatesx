@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'viewmodels/login_viewmodel.dart';
-import 'views/home/home_screen.dart';
+import 'views/auth/auth_wrapper.dart';
 
 void main() {
   runApp(const MyApp());
@@ -81,7 +81,7 @@ class MyApp extends StatelessWidget {
           color: Colors.white,
         ),
       ),
-      home: const HomeScreen(),
+      home: const AuthWrapper(),
       ),
     );
   }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../viewmodels/login_viewmodel.dart';
-import '../../../views/home/home_screen.dart';
 import 'social_button.dart';
 
 class LoginForm extends StatefulWidget {
@@ -186,12 +185,8 @@ class _LoginFormState extends State<LoginForm> {
                           _passwordController.text,
                         );
                         if (success && context.mounted) {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const HomeScreen(),
-                            ),
-                          );
+                          // AuthWrapper will automatically handle navigation
+                          // when login state changes
                         } else if (model.errorMessage != null) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
