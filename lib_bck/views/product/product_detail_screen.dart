@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../../models/product.dart';
-import '../../viewmodels/cart_viewmodel.dart';
-import '../../viewmodels/login_viewmodel.dart';
-import '../cart/cart_screen.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   final Product product;
@@ -317,47 +313,14 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         children: [
                           Expanded(
                             child: ElevatedButton(
-                              onPressed: () async {
-                                print('🔄 ProductDetailScreen: Add to Cart button pressed');
-                                final loginViewModel = Provider.of<LoginViewModel>(context, listen: false);
-                                final cartViewModel = Provider.of<CartViewModel>(context, listen: false);
-                                
-                                if (loginViewModel.user != null) {
-                                  print('🔄 ProductDetailScreen: User logged in - User ID: ${loginViewModel.user!.id}');
-                                  print('🔄 ProductDetailScreen: Product ID: ${widget.product.id}, Quantity: $_quantity');
-                                  
-                                  await cartViewModel.addToCart(
-                                    loginViewModel.user!.id,
-                                    widget.product.id,
-                                    _quantity,
-                                  );
-                                  
-                                  if (cartViewModel.error == null) {
-                                    print('✅ ProductDetailScreen: Item added successfully');
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text('${widget.product.title} added to cart!'),
-                                        backgroundColor: Colors.green,
-                                      ),
-                                    );
-                                  } else {
-                                    print('❌ ProductDetailScreen: Error adding item: ${cartViewModel.error}');
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text('Error: ${cartViewModel.error}'),
-                                        backgroundColor: Colors.red,
-                                      ),
-                                    );
-                                  }
-                                } else {
-                                  print('⚠️ ProductDetailScreen: User not logged in');
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('Please login to add items to cart'),
-                                      backgroundColor: Colors.orange,
-                                    ),
-                                  );
-                                }
+                              onPressed: () {
+                                // Add to cart functionality
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text('${widget.product.title} added to cart!'),
+                                    backgroundColor: Colors.green,
+                                  ),
+                                );
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.teal,
@@ -377,63 +340,17 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             ),
                           ),
                           const SizedBox(width: 12),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const CartScreen(),
-                                ),
-                              );
-                            },
-                            child: Container(
-                              width: 48,
-                              height: 48,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey[300]!),
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                              child: Consumer<CartViewModel>(
-                                builder: (context, cartViewModel, child) {
-                                  final itemCount = cartViewModel.totalQuantity;
-                                  return Stack(
-                                    children: [
-                                      const Center(
-                                        child: Icon(
-                                          Icons.shopping_cart_outlined,
-                                          color: Colors.grey,
-                                          size: 24,
-                                        ),
-                                      ),
-                                      if (itemCount > 0)
-                                        Positioned(
-                                          right: 6,
-                                          top: 6,
-                                          child: Container(
-                                            padding: const EdgeInsets.all(2),
-                                            decoration: BoxDecoration(
-                                              color: Colors.red,
-                                              borderRadius: BorderRadius.circular(8),
-                                            ),
-                                            constraints: const BoxConstraints(
-                                              minWidth: 16,
-                                              minHeight: 16,
-                                            ),
-                                            child: Text(
-                                              '$itemCount',
-                                              style: const TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ),
-                                        ),
-                                    ],
-                                  );
-                                },
-                              ),
+                          Container(
+                            width: 48,
+                            height: 48,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey[300]!),
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: const Icon(
+                              Icons.shopping_cart_outlined,
+                              color: Colors.grey,
+                              size: 24,
                             ),
                           ),
                         ],

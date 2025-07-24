@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'viewmodels/login_viewmodel.dart';
-import 'viewmodels/cart_viewmodel.dart';
 import 'views/auth/auth_wrapper.dart';
 
 void main() {
@@ -14,11 +13,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => LoginViewModel()),
-        ChangeNotifierProvider(create: (context) => CartViewModel()),
-      ],
+    return ChangeNotifierProvider(
+      create: (context) => LoginViewModel(),
       child: MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Ssense',
